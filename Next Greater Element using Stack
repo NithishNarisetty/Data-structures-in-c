@@ -1,0 +1,50 @@
+#include <stdio.h>
+
+#define MAX 100
+
+int stack[MAX];
+int top = -1;
+
+void push(int x) {
+    stack[++top] = x;     // push element
+}
+
+int pop() {
+    return stack[top--];  // pop element
+}
+
+int isEmpty() {
+    return top == -1;     // check empty
+}
+
+int main() {
+    int arr[MAX], n, i, next, element;
+
+    printf("Enter number of elements: ");   // input size
+    scanf("%d", &n);
+
+    printf("Enter elements: ");   // input array
+    for(i = 0; i < n; i++) {
+        scanf("%d", &arr[i]);
+    }
+
+    push(arr[0]);     // push first element
+
+    for(i = 1; i < n; i++) {
+        next = arr[i];     // current element
+
+        while(!isEmpty() && stack[top] < next) {
+            element = pop();     // pop smaller element
+            printf("%d -> %d\n", element, next);   // print NGE
+        }
+
+        push(next);     // push current element
+    }
+
+    while(!isEmpty()) {
+        element = pop();     // remaining elements
+        printf("%d -> -1\n", element);   // no greater element
+    }
+
+    return 0;     // end program
+}
