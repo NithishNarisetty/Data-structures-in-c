@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+void push(char ch) {
+    stack[++top] = ch;     // push character into stack
+}
+
+char pop() {
+    return stack[top--];   // pop character from stack
+}
+
+int main() {
+    char str[MAX], rev[MAX];
+    int i, len;
+
+    printf("Enter a string: ");     // input prompt
+    scanf("%s", str);               // read string
+
+    len = strlen(str);              // find length
+
+    for(i = 0; i < len; i++) {
+        push(str[i]);               // push each character
+    }
+
+    for(i = 0; i < len; i++) {
+        rev[i] = pop();             // pop to reverse string
+    }
+
+    rev[len] = '\0';                // terminate string
+
+    printf("Reversed string: %s", rev);   // display result
+
+    return 0;     // end program
+}
