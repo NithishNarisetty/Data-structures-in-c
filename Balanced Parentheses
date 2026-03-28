@@ -1,0 +1,47 @@
+#include <stdio.h>
+#include <string.h>
+
+#define MAX 100
+
+char stack[MAX];
+int top = -1;
+
+void push(char ch) {
+    stack[++top] = ch;     // push into stack
+}
+
+char pop() {
+    return stack[top--];   // pop from stack
+}
+
+int isEmpty() {
+    return top == -1;     // check if stack empty
+}
+
+int main() {
+    char exp[MAX];
+    int i;
+
+    printf("Enter expression: ");     // input prompt
+    scanf("%s", exp);                // read expression
+
+    for(i = 0; exp[i] != '\0'; i++) {
+        if(exp[i] == '(') {
+            push(exp[i]);            // push '('
+        }
+        else if(exp[i] == ')') {
+            if(isEmpty()) {
+                printf("Unbalanced Expression");   // no matching '('
+                return 0;
+            }
+            pop();                   // match found
+        }
+    }
+
+    if(isEmpty())
+        printf("Balanced Expression");     // all matched
+    else
+        printf("Unbalanced Expression");   // extra '(' left
+
+    return 0;     // end program
+}
